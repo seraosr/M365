@@ -1,0 +1,21 @@
+$user = "adm_ricardo.soares@kscsglobal.onmicrosoft.com"
+$rooms = @(
+    "DE-BDN-A0.06-KOELN@infios.com",
+    "DE-BDN-B0.04-LYON@infios.com",
+    "DE-BDN-B0.05-BARCELONA@infios.com",
+    "DE-BDN-B0.06-MADRID@infios.com",
+    "DE-BDN-B0.07-DRESDEN@infios.com",
+    "DE-BDN-B0.08-ESSEN@infios.com",
+    "DE-BDN-DK.04-Showroom@infios.com"
+)
+# ==================
+
+foreach ($room in $rooms) {
+    Write-Host "Granting FullAccess to $user on $room ..." -ForegroundColor Cyan
+    Add-MailboxPermission -Identity $room -User $user -AccessRights FullAccess -AutoMapping:$true -ErrorAction Stop
+
+    # Optional: also allow Send As (comment out if not needed)
+    # Add-RecipientPermission -Identity $room -Trustee $user -AccessRights SendAs -ErrorAction Stop
+}
+
+Write-Host "Done. Propagation can take 5–30 minutes (auto-mapping can take longer)." -ForegroundColor Green
