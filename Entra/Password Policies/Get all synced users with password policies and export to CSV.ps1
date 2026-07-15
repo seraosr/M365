@@ -1,5 +1,7 @@
 # Get all synced users with password policies and export to CSV
 
+Connect-MgGraph -Scopes "User.ReadWrite.All","Directory.ReadWrite.All" -NoWelcome
+
 $users = Get-MgUser -All -Property "id,displayName,userPrincipalName,onPremisesSyncEnabled,accountEnabled,passwordPolicies"
 $report = $users | Select-Object `
   DisplayName,
